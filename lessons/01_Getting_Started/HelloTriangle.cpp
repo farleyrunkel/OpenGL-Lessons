@@ -1,23 +1,55 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <linmath.h>
 #include <iostream>
+
+vec4 aColor;
+// 生成随机颜色的函数
+void setRandomColor(vec4 v) {
+	float r = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	float g = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	float b = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	v[0] = r;
+	v[1] = g;
+	v[2] = b;
+	v[3] = 1.0f;
+}
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
 
+bool isMouseLeftButtonPressed = false;
+
 void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+		std::cout << "Mouse left button pressed" << std::endl;
+		isMouseLeftButtonPressed = true;
+
+	}
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+		if (isMouseLeftButtonPressed) {
+			isMouseLeftButtonPressed = false;
+			setRandomColor(aColor);
+		}
+	}
 }
 
 float vertices[] = {
-	-0.5f, -0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f,
-	 0.0f,  0.5f, 0.0f
+	// 第一个三角形
+	0.5f, 0.5f, 0.0f,   // 右上角
+	0.5f, -0.5f, 0.0f,  // 右下角
+	-0.5f, 0.5f, 0.0f,  // 左上角
+	// 第二个三角形
+	0.5f, -0.5f, 0.0f,  // 右下角
+	-0.5f, -0.5f, 0.0f, // 左下角
+	-0.5f, 0.5f, 0.0f   // 左上角
 };
+
 int main()
 {
 	glfwInit();
@@ -40,6 +72,12 @@ int main()
 		return -1;
 	}
 	glViewport(0, 0, 800, 600);
+
+	srand(static_cast<unsigned>(time(nullptr))); // 用当前时间初始化随机种子
+
+	setRandomColor(aColor);
+
+
 
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
@@ -76,9 +114,10 @@ int main()
 
 	const char* fragmentShaderSource = "#version 330 core\n"
 		"out vec4 FragColor;\n"
+		"uniform vec4 uColor;"
 		"void main()\n"
 		"{\n"
-		"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+		"       FragColor = uColor;  \n"
 		"}\n\0";
 
 	unsigned int fragmentShader;
@@ -100,14 +139,20 @@ int main()
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-	glBindVertexArray(VAO);
+
+	// 获取 uniform 位置
+	GLuint colorLoc = glGetUniformLocation(shaderProgram, "uColor");
+
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	while (!glfwWindowShouldClose(window))
 	{
 		processInput(window);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		// 更新 uniform 颜色
+		glUniform4fv(colorLoc, 1, aColor);
+
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

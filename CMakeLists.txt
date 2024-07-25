@@ -12,6 +12,7 @@ if(glfw3_FOUND)
 else()
     add_subdirectory(external/glfw)
     include_directories(external/glfw/include)
+    include_directories(external/glfw/deps)
     link_libraries(glfw)
 endif()
 
