@@ -1,2 +1,6 @@
 .vs
+.vscode
 
+out
+
+build
