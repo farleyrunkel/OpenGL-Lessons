@@ -28,5 +28,16 @@ else()
     message(FATAL_ERROR "GLAD not found")
 endif()
 
+set(glad_DIR "${CMAKE_SOURCE_DIR}/external/stb")
+# if glad dir is not found, throw an error
+if(EXISTS ${glad_DIR})
+    message(STATUS "GLAD found")
+    include_directories(${glad_DIR})
+else()
+    message(FATAL_ERROR "GLAD not found")
+endif()
+
+
+
 add_subdirectory(lessons/01_Getting_Started)
 
