@@ -27,5 +27,5 @@ else()
     message(FATAL_ERROR "GLAD not found")
 endif()
 
-add_subdirectory(lessons/01-HelloOpenGL)
+add_subdirectory(lessons/01_Getting_Started)
 
