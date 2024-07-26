@@ -18,3 +18,5 @@ add_executable(HelloTexture2 "HelloTexture2.cpp")
 
 add_executable(HelloGlm "HelloGlm.cpp")
 add_executable(HelloGlm1 "HelloGlm1.cpp")
+
+add_executable(Hello3D "Hello3D.cpp")
