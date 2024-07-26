@@ -33,7 +33,12 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	// glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 600, "HelloWindow", NULL, NULL);
+	// set window locate in the center area of the screen
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	glfwSetWindowPos(window, (mode->width - 800) / 2, (mode->height - 600) / 2);
+
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -90,48 +95,47 @@ int main()
 	 stbi_image_free(data);
 
 	const char* vertexShaderSource = R"(
-			#version 330 core
-			layout (location = 0) in vec3 aPos;
-			layout (location = 1) in vec3 aColor;
-			layout (location = 2) in vec2 aTexCoord;
+		#version 330 core
+		layout (location = 0) in vec3 aPos;
+		layout (location = 1) in vec3 aColor;
+		layout (location = 2) in vec2 aTexCoord;
 
-			out vec3 ourColor;
-			out vec2 TexCoord;
+		out vec3 ourColor;
+		out vec2 TexCoord;
 
-			void main()
-			{
-				gl_Position = vec4(aPos, 1.0);
-				ourColor = aColor;
-				TexCoord = aTexCoord;
-			}
+		void main()
+		{
+			gl_Position = vec4(aPos, 1.0);
+			ourColor = aColor;
+			TexCoord = aTexCoord;
+		}
 	)";
 
 	const char* fragmentShaderSource = R"(
-			#version 330 core
-			out vec4 FragColor;
-			in vec3 ourColor;
-			in vec2 TexCoord;
+		#version 330 core
+		out vec4 FragColor;
+		in vec3 ourColor;
+		in vec2 TexCoord;
 
-			uniform sampler2D ourTexture;
+		uniform sampler2D ourTexture;
 
-			void main()
-			{
-				FragColor = texture(ourTexture, TexCoord);
-			}
+		void main()
+		{
+			FragColor = texture(ourTexture, TexCoord);
+		}
 	)";
 
 	Shader shaderProgram(vertexShaderSource, fragmentShaderSource);
 	// 激活 shader
 	shaderProgram.use();
 
-	// 获取 uniform 位置
-	GLuint colorLoc = glGetUniformLocation(shaderProgram.ID, "uColor");
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	while (!glfwWindowShouldClose(window))
 	{	
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(window, true);
+		}
 		
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glBindVertexArray(VAO);
