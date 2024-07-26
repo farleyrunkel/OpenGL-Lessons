@@ -8,7 +8,10 @@ add_executable(HelloWindow2 "HelloWindow2.cpp")
 
 add_executable(HelloTriangle "HelloTriangle.cpp")
 
+add_executable(HelloShader "HelloShader.cpp")
+
 
 add_executable(HelloTexture "HelloTexture.cpp")
 
-add_executable(HelloShader "HelloShader.cpp")
+
+add_executable(HelloTexture2 "HelloTexture2.cpp")

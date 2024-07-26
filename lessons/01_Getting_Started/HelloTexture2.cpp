@@ -80,10 +80,9 @@ int main()
 	int width, height, nrChannels;
 
 	unsigned char* data = stbi_load("E:/Lessons/OpenGL/lessons/resources/container.jpg", &width, &height, &nrChannels, 0);
-	unsigned int texture;
-
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	unsigned int texture1;
+	glGenTextures(1, &texture1);
+	glBindTexture(GL_TEXTURE_2D, texture1);
 	// 设置纹理环绕方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -94,7 +93,22 @@ int main()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	 stbi_image_free(data);
+	data = stbi_load("E:/Lessons/OpenGL/lessons/resources/awesomeface.png", &width, &height, &nrChannels, 0);
+	unsigned int texture2;
+	glGenTextures(1, &texture2);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	// 设置纹理环绕方式
+		
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// 设置纹理过滤方式
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	// 生成纹理
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(data);
+
 
 	const char* vertexShaderSource = R"(
 		#version 330 core
@@ -119,19 +133,21 @@ int main()
 		in vec3 ourColor;
 		in vec2 TexCoord;
 
-		uniform sampler2D ourTexture;
+		uniform sampler2D texture1;
+		uniform sampler2D texture2;
 
 		void main()
 		{
-			// FragColor = texture(ourTexture, TexCoord);
-			FragColor = texture(ourTexture, TexCoord) * vec4(ourColor, 1.0);
+			 FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
 		}
 	)";
 
 	Shader shaderProgram(vertexShaderSource, fragmentShaderSource);
 	// 激活 shader
 	shaderProgram.use();
-
+	shaderProgram.use(); // 不要忘记在设置uniform变量之前激活着色器程序！
+	shaderProgram.setInt("texture1", 0); // 或者使用着色器类设置
+	shaderProgram.setInt("texture2", 1); // 或者使用着色器类设置
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	while (!glfwWindowShouldClose(window))
@@ -140,7 +156,11 @@ int main()
 			glfwSetWindowShouldClose(window, true);
 		}
 		
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+
 		glBindVertexArray(VAO);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
