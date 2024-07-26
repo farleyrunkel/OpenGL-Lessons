@@ -33,6 +33,8 @@ set(glad_DIR "${CMAKE_SOURCE_DIR}/external/stb")
 if(EXISTS ${glad_DIR})
     message(STATUS "GLAD found")
     include_directories(${glad_DIR})
+    # add complier option STB_IMAGE_IMPLEMENTATION
+    add_compile_options(-DSTB_IMAGE_IMPLEMENTATION)
 else()
     message(FATAL_ERROR "GLAD not found")
 endif()
