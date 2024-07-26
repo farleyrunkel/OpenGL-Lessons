@@ -39,6 +39,14 @@ else()
     message(FATAL_ERROR "GLAD not found")
 endif()
 
+set(glm_DIR "${CMAKE_SOURCE_DIR}/external/glm")
+# if glm dir is not found, throw an error
+if(EXISTS ${glm_DIR})
+    message(STATUS "GLM found")
+    include_directories(${glm_DIR})
+else()
+    message(FATAL_ERROR "GLM not found")
+endif()
 
 
 add_subdirectory(lessons/01_Getting_Started)
