@@ -1,15 +1,50 @@
 # OpenGl Lessons
 
-## Lesson 1: Getting Started
+<div style="
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+    ">
+<p style="font-size: 6vw; 
+background-image: url('./images/background.png'); 
+background-size: cover; margin: 0; text-align: center;">
+    Create Window
+</p>
+    <img src="./images/HelloWindow.gif" alt="ͼƬ1">
+    <img src="./images/HelloWindow2.gif" alt="ͼƬ1">
+    <p style="font-size: 6vw; 
+background-image: url('./images/background.png'); 
+background-size: cover; margin: 0; text-align: center;">
+    Hello, Triangle
+</p>
+    <img src="./images/HelloTriangle.gif" alt="ͼƬ1">
+<p style="font-size: 6vw; 
+background-image: url('./images/background.png'); 
+background-size: cover; margin: 0; text-align: center;">
+    Define Shader
+</p>
+    <img src="./images/HelloShader.gif" alt="ͼƬ1">
+    <p style="font-size: 6vw; 
+background-image: url('./images/background.png'); 
+background-size: cover; margin: 0; text-align: center;">
+    Texture
+</p>
+    <img src="./images/HelloTexture.gif" alt="ͼƬ1">
+    <img src="./images/HelloTexture1.gif" alt="ͼƬ1">
+    <img src="./images/HelloTexture2.gif" alt="ͼƬ1">
+    <p style="font-size: 6vw; 
+background-image: url('./images/background.png'); 
+background-size: cover; margin: 0; text-align: center;">
+    Coordinate System
+</p>
+    <img src="./images/HelloGlm.gif" alt="ͼƬ1">
+    <img src="./images/HelloGlm1.gif" alt="ͼƬ1">
+    <img src="./images/HelloGlm2.gif" alt="ͼƬ1">
+        <p style="font-size: 6vw; 
+background-image: url('./images/background.png'); 
+background-size: cover; margin: 0; text-align: center;">
+    3D
+</p>
+    <img src="./images/Hello3D.gif" alt="ͼƬ1">
+</div>
 
-
-| |  |  |
-|:---:|:---:|:---:|
-| ![Hello Window](./images/HelloWindow.gif) `HelloWindow.cpp` | ![Hello Window 2](./images/HelloWindow2.gif) `HelloWindow2.cpp`   |
-| ![Hello Triangle](./images/HelloTriangle.gif) `HelloTriangle.cpp` |  ![Hello Shader](./images/HelloShader.gif) `HelloShader.cpp`   |
-| ![Hello Texture](./images/HelloTexture.gif) `HelloTexture.cpp` | ![Hello Texture](./images/HelloTexture1.gif) `HelloTexture.cpp` | ![Hello Texture2](./images/HelloTexture2.gif) `HelloTexture2.cpp` |
-| ![Hello Glm](./images/HelloGlm.gif) `HelloGlm.cpp` | ![Hello Glm](./images/HelloGlm1.gif) `HelloGlm1.cpp` | ![Hello Glm2](./images/HelloGlm2.gif) `HelloGlm2.cpp` |
-| ![Hello 3D](./images/Hello3D.gif) `Hello3D.cpp` | 
-| | | |
-
-  
