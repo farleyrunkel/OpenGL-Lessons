@@ -204,9 +204,18 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture2);
 
         // create transformations
-        glm::mat4 transform = glm::mat4(1.0f);
-        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-        //transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        // get random number
+        srand((unsigned)time);
+        for (int i = 0; i < 20; i++) 
+        {
+        float time= glfwGetTime();
+
+        float random = rand() % 100 / 100.0f;
+
+        glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        transform = glm::translate(transform, glm::vec3(sin(random * random * time) * 0.5 + sin(time * random) * 0.5, sin(random * time) * 0.5 + cos(time * random) * 0.5, 0.0f));
+        transform = glm::rotate(transform, (time), glm::vec3(sin(time * random), cos(time * random * random), tan(time * random)));
+        transform = glm::scale(transform,glm::vec3(sin(time * random) * 0.5, cos(time* random) * 0.5, tan(time)));
 
         // get matrix's uniform location and set matrix
         ourShader.use();
@@ -216,7 +225,7 @@ int main()
         // render container
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
+        }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
