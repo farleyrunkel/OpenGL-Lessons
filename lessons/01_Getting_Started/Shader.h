@@ -2,6 +2,9 @@
 #define SHADER_H
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 #include <fstream>
@@ -17,6 +20,12 @@ public:
     Shader() {
 	}
 
+    void setMat4(const char* name,  const glm::mat4& projection)
+    {
+        int projectionLoc = glGetUniformLocation(ID, name);
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+    }
     Shader(const char* theVertexCode, const char* theFragmentCode) {
         setShadeCode(theVertexCode, theFragmentCode);
     }

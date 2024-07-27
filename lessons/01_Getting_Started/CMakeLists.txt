@@ -23,3 +23,5 @@ add_executable(Hello3D "Hello3D.cpp")
 
 
 add_executable(Hello3DRotate "Hello3DRotate.cpp")
+
+add_executable(Hello3DMulCube "Hello3DMulCube.cpp")
