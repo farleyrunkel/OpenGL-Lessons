@@ -20,15 +20,25 @@ public:
     Shader() {
 	}
 
-    void setMat4(const char* name,  const glm::mat4& projection)
-    {
-        int projectionLoc = glGetUniformLocation(ID, name);
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-    }
     Shader(const char* theVertexCode, const char* theFragmentCode) {
         setShadeCode(theVertexCode, theFragmentCode);
     }
+
+    void setMat4(const char* name,  const glm::mat4& projection)
+    {
+        glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, glm::value_ptr(projection));
+    }
+
+    void setVec3(const std::string& name, const glm::vec3& value) const
+    {
+        glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+    }
+
+    void setVec3(const std::string& name, float x, float y, float z) const
+    {
+        glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+    }
+
 
     void readFromFile(const char* vertexPath, const char* fragmentPath)
     {

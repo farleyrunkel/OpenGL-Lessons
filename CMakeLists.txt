@@ -49,5 +49,9 @@ else()
 endif()
 
 
+include_directories(lessons)
+
 add_subdirectory(lessons/01_Getting_Started)
+
+# add_subdirectory(lessons/02_Lighting)
 
