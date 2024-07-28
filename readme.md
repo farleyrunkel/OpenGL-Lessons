@@ -20,4 +20,5 @@
   <img src="./images/background04.png?raw=true" width="23%">
   <img src="./images/HelloCamera.gif?raw=true"width="23%">
   <img src="./images/HelloCamera1.gif?raw=true"width="23%">
+  <img src="./images/HelloShot.gif?raw=true"width="23%">
 </p>

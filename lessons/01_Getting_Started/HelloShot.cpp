@@ -179,7 +179,7 @@ int main()
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char* data = stbi_load("E:/Lessons/OpenGL/lessons/resources/wall.jpg", &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load("E:/Lessons/OpenGL/lessons/resources/container.jpg", &width, &height, &nrChannels, 0);
     unsigned int texture1 = createTexture2D(GL_RGB, width, height, data, GL_LINEAR, GL_REPEAT);
 	stbi_image_free(data);
 
